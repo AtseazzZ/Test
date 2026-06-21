@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .news {
+            margin: 100px auto;
+            width: 360px;
+            height: 200px;
+            /* background-color: pink; */
+        }
+        
+        .news .hd {
+            height: 34px;
+            background-color: #eee;
+            border: 1px solid #dbdee1;
+            border-left: 0;
+        }
+
+        .news .hd a {
+            margin-top: -1px;
+            border-right: 1px solid #dbdee1;
+            display: block;
+            border-top: 3px solid #ff8400;
+            width: 48px;
+            height: 34px;
+            background-color: #fff;
+            text-align: center;
+            line-height: 32px;
+
+            font-size: 14px;
+            color: #333;
+        }
+
+        .news .bd {
+            padding: 5px;
+        }
+
+        .news .bd li {
+            padding-left: 15px;
+            background-image: url(./Snipaste_2025-08-03_11-23-51.png);
+            background-repeat: no-repeat;
+            background-position: 0 center;
+        }
+
+        .news .bd li a {
+           background: url(./Snipaste_2025-08-03_11-21-50.png) no-repeat 0 center; 
+           padding-left: 25px;
+           font-size: 12px;
+           color: #666;
+
+           line-height: 24px;
+        }
+
+        .news .bd li a:hover {
+            color: #ff8400;
+        }
+    </style>
+</head>
+<body>
+    <div class="news">
+        <div class="hd"><a href="#">新闻</a></div>
+        <div class="bd">
+            <ul>
+                <li><a href="#">欧盟妄议澳门执法！中方怒斥：欧盟无权说三道四</a></li>
+                <li><a href="#">“太空快递”签收之后 神二十乘组在忙些啥？</a></li>
+                <li><a href="#">31省份经济半年报出炉！数据背后释放哪些信号？</a></li>
+                <li><a href="#">福建舰模拟弹射试验后战士们紧紧相拥</a></li>        
+                <li><a href="#">雨来了！降水强度即将增强，影响北京大部地区！</a></li>
+                <li><a href="#">恭喜！奥运冠军官宣领证结婚</a></li>                
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
