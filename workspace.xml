@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7a51fae1-7dcb-4638-8e12-d2ddc2d9fc1c" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../JavaseAi/day01/src/demo/LoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaseAi/day01/day01.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaseAi/day01/day01.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaseAi/day01/src/demo/test01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaseAi/out/production/day01/demo/test01.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../acm/MarkdownFile/图/拓扑排序.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../acm/MarkdownFile/图/拓扑排序.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../acm/MarkdownFile/杂.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../acm/MarkdownFile/杂.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../output/小L的三则运算.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../output/小L的三则运算.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../前端/CSS测试.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../前端/mycss.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../前端/mycss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/C++面向对象.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/CSS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/HTML.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/Java.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/Python.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image-9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../语言/image.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="36aei7amXrKNe10V3C6s6VXUUi2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/桌面/code/Java项目/JAVATEST",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "D:/桌面/code/Java项目/JAVATEST/1/src/Main.java",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.Main.executor": "Run"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="7a51fae1-7dcb-4638-8e12-d2ddc2d9fc1c" name="更改" comment="" />
+      <created>1765249234206</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765249234206</updated>
+      <workItem from="1765249235405" duration="787000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
