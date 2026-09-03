@@ -1,40 +1,29 @@
-package com.atsea.pojo;
+package com.tt.entity;
 
-import lombok.AllArgsConstructor;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
+@TableName("sys_user")
 public class User {
-
-    private Integer id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
     private String username;
     private String password;
-    private String name;
-    private Integer age;
+    private String realName;
+    private Long primaryDeptId;
+    private LocalDateTime createTime;
 
-    @Override  // 注解表示重写父类（Object）的方法，必须加
-    public String toString() {
-        // 自定义输出格式，把所有字段的值拼进去
-        return "User{" +
-                "id=" + id +                    // 拼接id字段
-                ", username='" + username + '\'' +  // 拼接username（字符串加单引号更易读）
-                ", password='" + password + '\'' +  // 拼接password
-                ", name='" + name + '\'' +          // 拼接name
-                ", age=" + age +                  // 拼接age
-                '}';                              // 结尾闭合
-    }
+    /** 非数据库字段：角色列表 */
+    @TableField(exist = false)
+    private List<Role> roles;
 
-    public User(Integer id, String username, String password, String name, Integer age) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-    }
+    /** 非数据库字段：主部门名称 */
+    @TableField(exist = false)
+    private String primaryDeptName;
 }
