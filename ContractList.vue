@@ -1,213 +1,184 @@
 <template>
   <div class="contract-list">
-    <div class="toolbar">
-      <h2>合同列表</h2>
-      <el-button v-permission="'contract:create'" type="primary" @click="showCreate = true">
-        <el-icon><Plus /></el-icon> 新建合同
-      </el-button>
-    </div>
-
-    <el-table :data="contracts" border stripe v-loading="loading" style="width: 100%">
-      <el-table-column prop="contractNo" label="合同编号" width="140" />
-      <el-table-column prop="name" label="合同名称" min-width="160" />
-      <el-table-column prop="customer" label="客户" width="120" />
-      <el-table-column prop="amount" label="金额" width="120">
-        <template #default="{ row }">
-          {{ row.amount ? '¥' + row.amount.toLocaleString() : '-' }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="deptName" label="归属部门" width="100" />
-      <el-table-column prop="applicantName" label="申请人" width="80" />
-      <el-table-column prop="statusName" label="状态" width="160">
-        <template #default="{ row }">
-          <el-tag :type="statusType(row.status)">{{ row.statusName }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="300" fixed="right">
-        <template #default="{ row }">
-          <el-button v-permission="'contract:view'" size="small" @click="viewDetail(row.id)">
-            查看
-          </el-button>
-          <el-button v-if="row.status === 'DRAFT'"
-            v-permission="'contract:create'" size="small" type="success"
-            @click="doSubmit(row.id)">
-            提交
-          </el-button>
-          <el-button v-if="row.status === 'PENDING_ADMIN'"
-            v-permission="'contract:process'" size="small" type="warning"
-            @click="doProcess(row)">
-            处理
-          </el-button>
-          <el-button v-if="row.status === 'PENDING_MANAGER' || row.status === 'PENDING_LEADER'"
-            v-permission="'contract:approve'" size="small" type="primary"
-            @click="doApprove(row)">
-            审批
-          </el-button>
-          <el-button v-if="row.status === 'DRAFT'"
-            v-permission="'contract:withdraw'" size="small" type="danger"
-            @click="doWithdraw(row.id)">
-            撤回
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <!-- 新建合同对话框 -->
-    <el-dialog v-model="showCreate" title="新建合同" width="600px">
-      <el-form :model="createForm" label-width="100px">
-        <el-form-item label="合同编号"><el-input v-model="createForm.contractNo" /></el-form-item>
-        <el-form-item label="合同名称"><el-input v-model="createForm.name" /></el-form-item>
-        <el-form-item label="客户"><el-input v-model="createForm.customer" /></el-form-item>
-        <el-form-item label="金额"><el-input-number v-model="createForm.amount" :min="0" style="width:100%" /></el-form-item>
-        <el-form-item label="条款明细"><el-input v-model="createForm.clauseDetail" type="textarea" /></el-form-item>
-        <el-form-item label="附件"><el-input v-model="createForm.attachment" /></el-form-item>
-        <el-form-item label="备注"><el-input v-model="createForm.remark" type="textarea" /></el-form-item>
-        <el-form-item label="银行账号"><el-input v-model="createForm.bankAccount" /></el-form-item>
-        <el-form-item label="归属部门">
-          <el-select v-model="createForm.deptId" style="width:100%">
-            <el-option label="研发部" :value="1" />
-            <el-option label="运营部" :value="2" />
-            <el-option label="市场部" :value="3" />
-            <el-option label="财务部" :value="4" />
+    <!-- 筛选栏 -->
+    <el-card class="filter-card">
+      <el-form :inline="true" :model="filter">
+        <el-form-item label="状态">
+          <el-select v-model="filter.status" placeholder="全部" clearable style="width: 180px">
+            <el-option label="草稿" value="DRAFT" />
+            <el-option label="待合同管理员处理" value="PENDING_ADMIN" />
+            <el-option label="待部门经理审批" value="PENDING_MANAGER" />
+            <el-option label="待领导审批" value="PENDING_LEADER" />
+            <el-option label="已通过" value="APPROVED" />
+            <el-option label="已撤回" value="WITHDRAWN" />
+            <el-option label="已删除" value="DELETED" />
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="loadData">查询</el-button>
+          <el-button @click="resetFilter">重置</el-button>
+        </el-form-item>
       </el-form>
-      <template #footer>
-        <el-button @click="showCreate = false">取消</el-button>
-        <el-button type="primary" @click="createContract" :loading="creating">创建</el-button>
-      </template>
-    </el-dialog>
+    </el-card>
 
-    <!-- 审批/处理对话框 -->
-    <el-dialog v-model="showApproval" title="审批意见" width="400px">
-      <el-input v-model="approvalComment" type="textarea" placeholder="请输入审批意见（可选）" />
-      <template #footer>
-        <el-button @click="showApproval = false">取消</el-button>
-        <el-button type="primary" @click="confirmApproval" :loading="approving">确认</el-button>
+    <!-- 合同列表 -->
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>合同列表</span>
+          <div>
+            <span class="scope-hint">数据范围：{{ scopeHint }}</span>
+            <el-button
+              v-permission="'contract:create'"
+              type="primary"
+              size="small"
+              @click="$router.push('/contract/create')"
+            >
+              发起合同
+            </el-button>
+          </div>
+        </div>
       </template>
-    </el-dialog>
+
+      <el-table :data="tableData" v-loading="loading" stripe>
+        <el-table-column prop="contractNo" label="合同编号" width="160" />
+        <el-table-column prop="name" label="合同名称" min-width="180" show-overflow-tooltip />
+        <el-table-column prop="customer" label="客户" width="140" />
+        <el-table-column prop="deptName" label="归属部门" width="100" />
+        <el-table-column prop="applicantName" label="申请人" width="100" />
+        <el-table-column prop="amount" label="金额" width="120" align="right">
+          <template #default="{ row }">
+            {{ row.amount ? '¥' + Number(row.amount).toLocaleString() : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" label="当前节点" width="160">
+          <template #default="{ row }">
+            <el-tag :type="statusTagType(row.status)" size="small">
+              {{ statusLabel(row.status) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="100" fixed="right">
+          <template #default="{ row }">
+            <el-button size="small" link @click="goDetail(row.id)">详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页 -->
+      <div class="pagination">
+        <el-pagination
+          v-model:current-page="page.current"
+          v-model:page-size="page.size"
+          :total="page.total"
+          :page-sizes="[10, 20, 50]"
+          layout="total, sizes, prev, pager, next"
+          @size-change="loadData"
+          @current-change="loadData"
+        />
+      </div>
+    </el-card>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { contractApi } from '../api'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { getContractList } from '../api/contract'
+import { useUserStore } from '../stores/user'
 
 const router = useRouter()
-const contracts = ref([])
-const loading = ref(false)
-const showCreate = ref(false)
-const creating = ref(false)
-const showApproval = ref(false)
-const approving = ref(false)
-const approvalComment = ref('')
-const currentContract = ref(null)
-const approvalAction = ref('')
+const userStore = useUserStore()
 
-const createForm = ref({
-  contractNo: '',
-  name: '',
-  customer: '',
-  amount: null,
-  clauseDetail: '',
-  attachment: '',
-  remark: '',
-  bankAccount: '',
-  deptId: 1
+const loading = ref(false)
+const tableData = ref([])
+const page = reactive({ current: 1, size: 10, total: 0 })
+const filter = reactive({ status: '' })
+
+const scopeHint = computed(() => {
+  const roles = userStore.roles
+  if (roles.includes('LEADER')) return '全部合同'
+  if (roles.includes('DEPT_MANAGER')) return '本部门合同'
+  if (roles.includes('CONTRACT_ADMIN')) return '自定义部门集合'
+  if (roles.includes('APPLICANT')) return '仅本人创建的合同'
+  return '未知'
 })
 
-function statusType(status) {
-  const map = { DRAFT: 'info', PENDING_ADMIN: 'warning', PENDING_MANAGER: 'warning',
-                PENDING_LEADER: 'warning', APPROVED: 'success', WITHDRAWN: 'danger', DELETED: 'danger' }
-  return map[status] || 'info'
-}
-
-async function loadContracts() {
+async function loadData() {
   loading.value = true
   try {
-    const res = await contractApi.list()
-    contracts.value = res.data
+    const res = await getContractList({
+      page: page.current,
+      size: page.size,
+      status: filter.status || undefined
+    })
+    tableData.value = res.data.records || []
+    page.total = res.data.total || 0
+  } catch (e) {
+    // 已处理
   } finally {
     loading.value = false
   }
 }
 
-function viewDetail(id) {
-  router.push(`/contract/${id}`)
+function resetFilter() {
+  filter.status = ''
+  page.current = 1
+  loadData()
 }
 
-async function doSubmit(id) {
-  try {
-    await contractApi.submit(id)
-    ElMessage.success('提交成功')
-    loadContracts()
-  } catch {}
+function goDetail(id) {
+  router.push(`/contract/detail/${id}`)
 }
 
-function doProcess(row) {
-  currentContract.value = row
-  approvalAction.value = 'process'
-  approvalComment.value = ''
-  showApproval.value = true
-}
-
-function doApprove(row) {
-  currentContract.value = row
-  approvalAction.value = 'approve'
-  approvalComment.value = ''
-  showApproval.value = true
-}
-
-async function confirmApproval() {
-  approving.value = true
-  try {
-    if (approvalAction.value === 'process') {
-      await contractApi.process(currentContract.value.id, approvalComment.value)
-    } else {
-      await contractApi.approve(currentContract.value.id, approvalComment.value)
-    }
-    ElMessage.success('操作成功')
-    showApproval.value = false
-    loadContracts()
-  } finally {
-    approving.value = false
+function statusLabel(status) {
+  const map = {
+    DRAFT: '草稿',
+    PENDING_ADMIN: '待合同管理员处理',
+    PENDING_MANAGER: '待部门经理审批',
+    PENDING_LEADER: '待领导审批',
+    APPROVED: '已通过',
+    WITHDRAWN: '已撤回',
+    DELETED: '已删除'
   }
+  return map[status] || status
 }
 
-async function doWithdraw(id) {
-  try {
-    await ElMessageBox.confirm('确认撤回该合同？', '提示', { type: 'warning' })
-    await contractApi.withdraw(id)
-    ElMessage.success('已撤回')
-    loadContracts()
-  } catch {}
-}
-
-async function createContract() {
-  creating.value = true
-  try {
-    await contractApi.create(createForm.value)
-    ElMessage.success('创建成功')
-    showCreate.value = false
-    createForm.value = { contractNo: '', name: '', customer: '', amount: null,
-      clauseDetail: '', attachment: '', remark: '', bankAccount: '', deptId: 1 }
-    loadContracts()
-  } finally {
-    creating.value = false
+function statusTagType(status) {
+  const map = {
+    DRAFT: 'info',
+    PENDING_ADMIN: '',
+    PENDING_MANAGER: 'warning',
+    PENDING_LEADER: 'danger',
+    APPROVED: 'success',
+    WITHDRAWN: 'info',
+    DELETED: 'info'
   }
+  return map[status] || ''
 }
 
-onMounted(loadContracts)
+onMounted(() => {
+  loadData()
+})
 </script>
 
 <style scoped>
-.toolbar {
+.filter-card {
+  margin-bottom: 16px;
+}
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 }
-.toolbar h2 { margin: 0; }
+.scope-hint {
+  color: #909399;
+  font-size: 13px;
+  margin-right: 12px;
+}
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
