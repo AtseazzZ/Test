@@ -1,45 +1,30 @@
-package com.logistics.market.common;
+package com.hmdp.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
-/**
- * 统一响应结果
- */
+import java.util.List;
+
 @Data
-public class Result<T> implements Serializable {
-    private Integer code;
-    private String message;
-    private T data;
+@NoArgsConstructor
+@AllArgsConstructor
+public class Result {
+    private Boolean success;
+    private String errorMsg;
+    private Object data;
+    private Long total;
 
-    public static <T> Result<T> success() {
-        return success(null);
+    public static Result ok(){
+        return new Result(true, null, null, null);
     }
-
-    public static <T> Result<T> success(T data) {
-        Result<T> r = new Result<>();
-        r.setCode(200);
-        r.setMessage("操作成功");
-        r.setData(data);
-        return r;
+    public static Result ok(Object data){
+        return new Result(true, null, data, null);
     }
-
-    public static <T> Result<T> success(String message, T data) {
-        Result<T> r = new Result<>();
-        r.setCode(200);
-        r.setMessage(message);
-        r.setData(data);
-        return r;
+    public static Result ok(List<?> data, Long total){
+        return new Result(true, null, data, total);
     }
-
-    public static <T> Result<T> error(String message) {
-        return error(500, message);
-    }
-
-    public static <T> Result<T> error(Integer code, String message) {
-        Result<T> r = new Result<>();
-        r.setCode(code);
-        r.setMessage(message);
-        return r;
+    public static Result fail(String errorMsg){
+        return new Result(false, errorMsg, null, null);
     }
 }
